@@ -1,0 +1,121 @@
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="InvoiceReport"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="555"
+              leftMargin="20"
+              rightMargin="20"
+              topMargin="20"
+              bottomMargin="20">
+
+    <parameter name="invoiceNumber" class="java.lang.String"/>
+    <parameter name="paymentDate" class="java.util.Date"/>
+    <parameter name="vendorName" class="java.lang.String"/>
+    <parameter name="vendorAddress" class="java.lang.String"/>
+    <parameter name="vendorNumber" class="java.lang.String"/>
+    <parameter name="clientName" class="java.lang.String"/>
+    <parameter name="clientAddress" class="java.lang.String"/>
+    <parameter name="clientNumber" class="java.lang.String"/>
+    <parameter name="poNumber" class="java.lang.String"/>
+    <parameter name="targetBankAccount" class="java.lang.String"/>
+    <parameter name="sourceBankAccount" class="java.lang.String"/>
+    <parameter name="totalAmount" class="java.lang.Double"/>
+    <parameter name="tdsAmount" class="java.lang.Double"/>
+    <parameter name="netAmount" class="java.lang.Double"/>
+
+    <field name="name" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Integer"/>
+    <field name="price" class="java.lang.Double"/>
+    <field name="total" class="java.lang.Double"/>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="100" height="20"/>
+                <textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="200"> <!-- Band height -->
+            <textField>
+                <reportElement x="0" y="0" width="400" height="20"/>
+                <textFieldExpression><![CDATA["Invoice Number: " + $P{invoiceNumber}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$P{paymentDate}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="30" width="555" height="20"/>
+                <textFieldExpression><![CDATA["Vendor: " + $P{vendorName} + ", " + $P{vendorAddress} + ", " + $P{vendorNumber}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="60" width="555" height="20"/>
+                <textFieldExpression><![CDATA["Client: " + $P{clientName} + ", " + $P{clientAddress} + ", " + $P{clientNumber} + ", PO: " + $P{poNumber}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="90" width="555" height="20"/>
+                <textFieldExpression><![CDATA["Bank Accounts: Target - " + $P{targetBankAccount} + ", Source - " + $P{sourceBankAccount}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="120" width="555" height="1"/>
+            </line>
+
+            <textField>
+                <reportElement x="0" y="130" width="400" height="20"/>
+                <textFieldExpression><![CDATA["Total Amount: " + $P{totalAmount}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="130" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$P{totalAmount}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="150" width="400" height="20"/>
+                <textFieldExpression><![CDATA["TDS Deduction: " + $P{tdsAmount}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="150" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$P{tdsAmount}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="0" y="170" width="400" height="20"/>
+                <textFieldExpression><![CDATA["Net Amount: " + $P{netAmount}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="170" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$P{netAmount}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="190" width="200" height="20"/>
+                <text><![CDATA["Signature:"]]></text>
+            </staticText>
+            <rectangle>
+                <reportElement x="200" y="190" width="200" height="20"/> <!-- Reduced height -->
+            </rectangle>
+        </band>
+    </summary>
+
+</jasperReport>

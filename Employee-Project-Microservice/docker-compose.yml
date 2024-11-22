@@ -1,0 +1,69 @@
+version: "3"
+services:
+  registry-sr:
+    image: eurekaserver
+    build: ./Eurekaserver/EurekaServer
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+  
+
+
+  
+  gateway-sr:
+    image: gateway
+    build: ./Gateway
+    ports:
+      - "8222:8222"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+     
+
+  authentication-sr:
+    image: springsecurity
+    build: ./SpringSecurity
+    ports:
+      - "8090:8090"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - gateway-sr
+
+  projectinfo-sr:
+    image: projectinfo
+    build: ./Projectinfo/Projectinfo
+    ports:
+      - "9091:9091"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - gateway-sr
+      - authentication-sr
+  
+  employeeinfo-sr:
+    image: employeeinfo
+    build: ./Employeeinfo/Employeeinfo
+    ports:
+      - "9092:9092"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - gateway-sr
+      - authentication-sr
+
+  # mysqldb:
+  #   image: mysql:8
+  #   networks:
+  #     - app-network
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=organizationdb
+
+networks:
+  app-network:
